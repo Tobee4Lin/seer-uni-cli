@@ -1,0 +1,1 @@
+<view class="data-v-62ed4cd6"><q-s-infinite-pics vue-id="0a866220-1" variableName="infinitePics" title="上传图片" max="{{MAX_PIC_UPLOAD_NUM}}" data-ref="picRef" class="data-v-62ed4cd6 vue-ref" bind:__l="__l"></q-s-infinite-pics></view>

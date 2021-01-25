@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/demo/uploadPic",
+    "pages/demo/list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {
+    "mescroll-body": "/components/mescroll-uni/mescroll-body",
+    "q-s-infinite-pics": "/components/QS-inputs-split/elements/QS-infinitePics/index"
+  }
+}
