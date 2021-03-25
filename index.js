@@ -9,7 +9,22 @@ const ora = require("ora");
 const chalk = require("chalk");
 const symbols = require("log-symbols");
 
-program.version("1.0.3", "-v, --version")
+
+const promptList = [{
+    type: "input",
+    message: "请输入项目描述:",
+    name: "description"
+}, {
+    type: "list",
+    message: "请选择分支:(master分支为基础分支，boost-isp-common为智慧监管公共内容增强集合分支)",
+    name: "branch",
+    choices: [
+        "master",
+        "boost-isp-common"
+    ]
+}];
+
+program.version("1.0.5", "-v, --version")
 	.command("init <name>")
 	.action((name) => {
 		if (fs.existsSync(name)) {
@@ -18,30 +33,20 @@ program.version("1.0.3", "-v, --version")
 			return;
 		}
 		inquirer
-			.prompt([
-				{
-					name: "author",
-					message: "请输入作者名称"
-				},
-				{
-					name: "description",
-					message: "请输入项目描述"
-				}
-			])
+			.prompt(promptList)
 			.then(answers => {
 				download(
-					"https://github.com:Tobee4Lin/seer-uni-cli#master",
+					"https://github.com:Tobee4Lin/seer-uni-cli#" + answers.branch,
 					name,
 					{ clone: true },
 					err => {
-						const spinner = ora("正在下载模板...");
+						const spinner = ora("正在下载" + answers.branch + "分支模板...");
 						spinner.start();
 						if (!err) {
 							spinner.succeed();
 							const meta = {
 								name,
-								description: answers.description,
-								author: answers.author
+								description: answers.description
 							};
 							const fileName = `${name}/package.json`;
 							if (fs.existsSync(fileName)) {
