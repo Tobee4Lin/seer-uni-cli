@@ -1,7 +1,7 @@
 {
-  "component": true,
   "usingComponents": {
     "q-stemplate": "/components/QS-inputs-split/template/template",
     "uni-icon": "/components/QS-inputs-split/uniIcons/uni-icons"
-  }
+  },
+  "component": true
 }

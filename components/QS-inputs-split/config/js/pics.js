@@ -32,7 +32,7 @@ export function UpLoadFile(customId, filePath, picsUpLoadData) { // 上传文件
 		default: //若无判断需求可直接写在这里
 			url = interfaces.upLoadImg;
 			formData = {
-				relateId: Vue.prototype.$store.state.currentRelateId
+				// relateId: Vue.prototype.$store.state.currentRelateId
 			};
 			name = 'files';
 			break;

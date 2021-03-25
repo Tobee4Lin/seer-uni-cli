@@ -17,10 +17,10 @@ export const MAPKEY = "QSIBZ-A2332-KLNUG-CFWQO-52YC2-3EFK5";
 export const VERSION = "1.0.0";
 
 /* 线上地址 */
-// export const SERVER_URL = "https://ygcf.dg.cn";
-// export const SERVER_PORT = "8665/backend";
+export const SERVER_URL = "https://ygcf.dg.cn";
+export const SERVER_PORT = "8665/backend";
 
 /* 演示地址 */
-export const SERVER_URL = "http://172.20.186.14";
-export const SERVER_PORT = "28000";
+// export const SERVER_URL = "http://172.20.186.14";
+// export const SERVER_PORT = "28000";
 
