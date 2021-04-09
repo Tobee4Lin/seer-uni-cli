@@ -5,7 +5,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		accessToken: ""
+		accessToken: "",
+		inspectInfo: {},
+		inspectOrder: {}
 	},
 	getters: {
 		getAccessToken: state => {
@@ -20,7 +22,16 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.accessToken = "";
 			uni.removeStorageSync('accessToken');
-		}
+		},
+		
+		//保存检查单组件中的填写内容
+		saveInspectInfo(state, payload) {
+			state.inspectInfo = payload;
+		},
+		//保存检查单自身内容
+		saveInspectOrder(state, payload) {
+			state.inspectOrder = payload;
+		},
 	},
 	actions: {
 		logout({ commit }, info) {

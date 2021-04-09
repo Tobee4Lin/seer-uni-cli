@@ -14,9 +14,7 @@ const request = (url, data, method, header) => {
 	//默认请求配置
 	const defaultConfig = {
 		baseUrl: `${SERVER_URL}:${SERVER_PORT}/`,
-		header: {
-			"Content-Type": "application/json;charset=UTF-8"
-		},
+		header,
 		data: {},
 		method: "GET",
 		success() {},
@@ -37,10 +35,15 @@ const request = (url, data, method, header) => {
 	};
 
 	return new Promise((resolve, reject) => {
+		uni.showLoading({
+			title: "加载中",
+			mask: true
+		});
 		let _config = null;
 		// 响应相关
 		options.complete = (res) => {
 			res.config = _config;
+			uni.hideLoading();
 			resolve(res);
 			// if (/20\d$/.test(String(res.data.code))) {
 			// 	resolve(res);

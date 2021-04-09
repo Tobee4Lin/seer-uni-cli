@@ -2,7 +2,7 @@
 	<view>
 		<view class="content">
 			<view class="header">
-				<image src="/static/login/school.png"></image>
+				<image src="/static/login/login.png"></image>
 			</view>
 
 			<view class="list">
@@ -40,11 +40,9 @@
 </template>
 
 <script>
+	import API from "@/api/index.js"
 	import { setItem, getItem, removeItem } from "@/utils/storage.js";
 	export default {
-		onLoad(opt) {
-			
-		},
 		data() {
 			return {
 				username: "",
@@ -53,7 +51,7 @@
 				isChecked: getItem("_rememberPsw") || false
 			};
 		},
-		mounted() {
+		onLoad() {
 			//缓存的账号
 			const _username = getItem("_username");
 			//缓存的密码
@@ -94,6 +92,19 @@
 					removeItem("_password");
 					removeItem("_rememberPsw");
 				}
+				
+				API.login({
+					username: this.username,
+					password: this.password
+				}).then(res => {
+					//获取并设置token
+					API.setToken(res.data.data.Authorization);
+					//在这里做其他操作，如获取用户信息并存储，获取资源设置权限...
+					
+					// let finalPermissionPath = ResourceMapToPath(res.data.data.permission);
+				});
+				
+				
 				uni.switchTab({
 					url: "../index/index"
 				});

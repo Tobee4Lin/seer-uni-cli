@@ -3,7 +3,7 @@
 		<view class="content-wrap">
 			<view class="top-content">
 				<view class="pic-wrap">
-					<image src="/static/login/school.png" mode="aspectFill" data-src="/static/user/user.png" @click="imgShow"></image>
+					<image src="/static/login/login.png" mode="aspectFill" data-src="/static/user/user.png" @click="imgShow"></image>
 				</view>
 				<view class="text-content">
 					<p class="sname">张三</p>

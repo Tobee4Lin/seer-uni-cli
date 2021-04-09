@@ -31,7 +31,129 @@
 			"navigationBarTitleText": "个人中心",
 			"enablePullDownRefresh": false
 		}
-	}],
+	}, {
+		"path": "pages/notify/index",
+		"style": {
+			"navigationBarTitleText": "消息中心"
+		}
+	}, {
+		"path": "pages/rectify/index",
+		"style": {
+			"navigationBarTitleText": "整改中心"
+		}
+
+	}, {
+		"path": "pages/rectify/detail",
+		"style": {
+			"navigationBarTitleText": "整改详情"
+		}
+
+	}, {
+		"path": "pages/inspect/index",
+		"style": {
+			"navigationBarTitleText": "检查中心"
+		}
+
+	}, {
+		"path": "pages/inspect/detail",
+		"style": {
+			"navigationBarTitleText": "检查单详情",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/inspect/execute-page",
+		"style": {
+			"navigationBarTitleText": "开始检查",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/warning/index",
+		"style": {
+			"navigationBarTitleText": "预警中心"
+		}
+
+	}, {
+		"path": "pages/warning/detail",
+		"style": {
+			"navigationBarTitleText": "预警详情",
+			"enablePullDownRefresh": false
+		}
+
+	}    ,{
+            "path" : "pages/task/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/inspect/choose-template",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/inspect/add-sign",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/inspect/sign-page",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/task/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/task/add-sign",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/task/sign-page",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/task/preview-order-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"selectedColor": "#0091FF",
 		"list": [{
@@ -39,6 +161,11 @@
 			"text": "首页",
 			"iconPath": "static/tabbar/home.png",
 			"selectedIconPath": "static/tabbar/home-active.png"
+		}, {
+			"pagePath": "pages/notify/index",
+			"text": "消息",
+			"iconPath": "static/tabbar/user.png",
+			"selectedIconPath": "static/tabbar/user-active.png"
 		}, {
 			"pagePath": "pages/user/index",
 			"text": "我",
