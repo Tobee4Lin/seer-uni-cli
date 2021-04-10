@@ -3,7 +3,7 @@
 		<view class="content-wrap">
 			<view class="top-content">
 				<view class="pic-wrap">
-					<image src="/static/login/login.png" mode="aspectFill" data-src="/static/user/user.png" @click="imgShow"></image>
+					<image src="/static/login/logo.png" mode="aspectFill" data-src="/static/user/user.png" @click="imgShow"></image>
 				</view>
 				<view class="text-content">
 					<p class="sname">张三</p>
@@ -12,6 +12,12 @@
 			</view>
 			<view class="info-content">
 				<view class="cu-list menu">
+					<view class="cu-item arrow" @click="routeTo('../notice/index')">
+						<view class="content">
+							<image src="/static/user/check.png" class="png" mode="aspectFit"></image>
+							<text class="text-grey text">公告中心</text>
+						</view>
+					</view>
 					<view class="cu-item arrow custom-list-item" @click="logout">
 						<view class="content">
 							<image src="/static/user/exit.png" class="png" mode="aspectFit"></image>
@@ -31,6 +37,9 @@
 		},
 		
 		methods: {
+			routeTo(url) {
+				this.$navigateTo(url);
+			},
 			imgShow(e) {
 				let src = e.currentTarget.dataset.src;
 				uni.previewImage({
@@ -39,6 +48,7 @@
 				});
 			},
 			logout() {
+				let _this = this;
 				uni.showModal({
 					title: "提示",
 					content: "确认退出登录吗？",
@@ -47,7 +57,7 @@
 							uni.reLaunch({
 								url: "../login/index"
 							});
-							this.$showToast("退出成功", "success");
+							_this.$showToast("退出成功", "success");
 						} else if (res.cancel) {
 							return;
 						}

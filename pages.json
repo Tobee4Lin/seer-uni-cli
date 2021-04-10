@@ -153,6 +153,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/notice/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"selectedColor": "#0091FF",

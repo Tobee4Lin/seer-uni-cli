@@ -66,32 +66,29 @@
 				<template>
 					<!-- 待处理 -->
 					<template v-if="warningOrder.status == '2'">
-						<block v-if="hasPermission">
-							<view v-if="warningOrder.levelId != '4'" class="cu-bar bg-white solid-bottom margin-top">
-								<view class="action">
-									<text class="cuIcon-title text-orange"></text> 预警反馈
+						<view v-if="warningOrder.levelId != '4'" class="cu-bar bg-white solid-bottom margin-top">
+							<view class="action">
+								<text class="cuIcon-title text-orange"></text> 预警反馈
+							</view>
+							<view class="action"></view>
+						</view>
+
+						<template v-if="warningOrder.levelId != '4'">
+							<block>
+								<p class="sub-title">反馈描述</p>
+								<QSTextarea value="" textareaWidth=110 placeholder="输入反馈描述" v-model="handleDescription" :cursor_spacing="TEXTAREA_CURSOR_SPACING"></QSTextarea>
+								<view class="pic-info">
+									<p class="sub-title">现场照片</p>
+									<QSInfinitePics ref="picRef" title="上传图片" max=5></QSInfinitePics>
 								</view>
-								<view class="action"></view>
-							</view>
+							</block>
+						</template>
 
-							<template v-if="warningOrder.levelId != '4'">
-								<block>
-									<p class="sub-title">反馈描述</p>
-									<QSTextarea value="" textareaWidth=110 placeholder="输入反馈描述" v-model="handleDescription" :cursor_spacing="TEXTAREA_CURSOR_SPACING"></QSTextarea>
-									<view class="pic-info">
-										<p class="sub-title">现场照片</p>
-										<!-- 需要去插件目录下config目录中pics.js中配置上传图片url -->
-										<QSInfinitePics ref="picRef" title="上传图片" max=5></QSInfinitePics>
-									</view>
-								</block>
-							</template>
+						<view class="padding flex flex-direction">
 
-							<view class="padding flex flex-direction">
-
-								<button v-if="warningOrder.status == 2 && warningOrder.levelId != 4" class="cu-btn bg-blue margin-tb-sm lg" @click="submitFeedback">提交反馈</button>
-								<button v-if="warningOrder.status == 2 && warningOrder.levelId == 4" class="cu-btn bg-blue margin-tb-sm lg" @click="submitFeedback">了解</button>
-							</view>
-						</block>
+							<button v-if="warningOrder.status == 2 && warningOrder.levelId != 4" class="cu-btn bg-blue margin-tb-sm lg" @click="submitFeedback">提交反馈</button>
+							<button v-if="warningOrder.status == 2 && warningOrder.levelId == 4" class="cu-btn bg-blue margin-tb-sm lg" @click="submitFeedback">了解</button>
+						</view>
 					</template>
 
 					<!-- 审核中 -->
@@ -166,7 +163,7 @@
 				</template>
 			</form>
 
-			<view v-if="warningOrder.status == 2 && warningOrder.levelId != 4 && hasPermission">
+			<view v-if="warningOrder.status == 2 && warningOrder.levelId != 4">
 				<uni-fab :pattern="pattern" :content="content" :horizontal="horizontal" :vertical="vertical" :direction="direction"
 				 @trigger="trigger"></uni-fab>
 			</view>
@@ -213,15 +210,15 @@
 						let _ext = nV.extraDatagram;
 						if (_ext) {
 							if (_ext.pictureFiles && _ext.pictureFiles.length > 0) {
-								for (let picItem of _ext.pictureFiles) {
-									await downloadFile(picItem, this, true);
+								for await (let picItem of _ext.pictureFiles) {
+									downloadFile(picItem, this, true);
 								}
 							}
-							if (_ext.videoFiles && _ext.videoFiles.length > 0) {
-								for (let videoItem of _ext.videoFiles) {
-									await downloadFile(picItem, this, true);
-								}
-							}
+							// if (_ext.videoFiles && _ext.videoFiles.length > 0) {
+							// 	for (let videoItem of _ext.videoFiles) {
+							// 		await downloadFile(picItem, this, true);
+							// 	}
+							// }
 						}
 						if (nV.handleFileInfos && nV.handleFileInfos.length > 0) {
 							for (let picItem of nV.handleFileInfos) {
@@ -234,14 +231,7 @@
 		},
 		methods: {
 			trigger(e) {
-				if (!this.hasPermission) {
-					this.showToast("您暂无权限处理该预警");
-					return;
-				}
 				if (e.index == 0) {
-					this.addTask();
-				} else if (e.index == 1) {
-					let tenantType = this.$store.state.warningTenantType;
 					uni.navigateTo({
 						url: `../../../pages/all-check/check-by-warning?sourceType=1&sourceId=${this.warningRecordId}&handleDescription=${this.handleDescription}&principalId=${this.principalId}&principalName=${this.principalName}`
 					});
@@ -250,9 +240,6 @@
 						url: `../rectify-order/add-rectify-by-warning?&sourceType=1&sourceId=${this.warningRecordId}&handleDescription=${this.handleDescription}&principalId=${this.principalId}&principalName=${this.principalName}`
 					});
 				}
-			},
-			addTask() {
-				this.showToast("新增检查任务请前往PC端进行操作");
 			},
 			imgShow(e) {
 				let src = e.currentTarget.dataset.src;

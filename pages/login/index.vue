@@ -2,7 +2,7 @@
 	<view>
 		<view class="content">
 			<view class="header">
-				<image src="/static/login/login.png"></image>
+				<image src="/static/login/logo.png"></image>
 			</view>
 
 			<view class="list">
@@ -15,6 +15,25 @@
 					<input class="title" v-model="password" type="text" maxlength="50" placeholder="输入密码" :password="!showPassword" />
 					<image class="img" :src="showPassword?'/static/login/op.png':'/static/login/cl.png'" @tap="display"></image>
 				</view>
+				
+				<radio-group class="block" @change="RadioChange" style="text-align: center;">
+					<view class="flex">
+						<view class="flex-sub margin-xs radius" style="padding: 20rpx 0;">
+							<label>
+								<radio class="blue radio" :class="currentPrincipal=='market'?'checked':''" :checked="currentPrincipal=='market'?true:false"
+								 value="market"></radio>
+								<text style="margin-left: 10rpx;font-size: 24rpx;">市场用户</text>
+							</label>
+						</view>
+						<view class="flex-sub margin-xs radius" style="padding: 20rpx 0;text-align: center;">
+							<label>
+								<radio class="blue radio" :class="currentPrincipal=='supervision'?'checked':''" :checked="currentPrincipal=='supervision'?true:false"
+								 value="supervision"></radio>
+								<text style="margin-left: 10rpx;font-size: 24rpx;">监管用户</text>
+							</label>
+						</view>
+					</view>
+				</radio-group>
 				
 				<view style="position: relative;padding-top: 10rpx;">
 					<view style="position: absolute;right: 0;">
@@ -33,7 +52,7 @@
 			</view>
 
 			<view class="statement" style="color: #666;font-size: 22rpx;margin: 50rpx auto;">
-				此小程序仅为指定学校使用，请凭用户账号和密码登录
+				此小程序仅为指定农贸市场主体使用，请凭用户账号和密码登录
 			</view>
 		</view>
 	</view>
@@ -48,7 +67,8 @@
 				username: "",
 				password: "",
 				showPassword: false,
-				isChecked: getItem("_rememberPsw") || false
+				isChecked: getItem("_rememberPsw") || false,
+				currentPrincipal: "market"
 			};
 		},
 		onLoad() {
