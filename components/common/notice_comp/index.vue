@@ -74,13 +74,27 @@
 <script>
 	import API from "@/api/index.js"
 	import YouScroll from "@/components/you-scroll/index";
+	
 	export default {
+		props: {
+			noticeList: {
+				type: Array,
+				default () {
+					return [];
+				}
+			},
+			boardcastList: {
+				type: Array,
+				default () {
+					return [];
+				}
+			}
+		},
 		components: {
 			YouScroll
 		},
 		data() {
 			return {
-				topNav: "",
 				TabCur: 0,
 				scrollLeft: 0,
 				selectChildValue: "boardcast-list",
@@ -92,34 +106,8 @@
 						name: "公告",
 						value: "notice-list"
 					},
-				],
-
-				boardcastList: [],
-				noticeList: [],
-
-				isBoardcastSearch: true,
-				boardcastPage: 1,
-				totalBoardcastElements: 0,
-
-				isNoticeSearch: true,
-				noticePage: 1,
-				totalNoticeElements: 0,
-				
-				orderParams: [{
-					"fieldName": "notice.createDate",
-					"order": "desc"
-				}]
+				]
 			}
-		},
-		// onReady() {
-		// 	let _this = this;
-		// 	uni.createSelectorQuery().select('.border-bottom').boundingClientRect(function(e) {
-		// 		_this.topNav = e.height;
-		// 	}).exec();
-		// },
-		created() {
-			this.getNoticesList();
-			this.getBoartcastsList();
 		},
 		async onReachBottom() {
 			if (this.selectChildValue === "notice-list" &&
@@ -142,78 +130,15 @@
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
 			},
 			async onPullDownNotice(done) {
-				this.isNoticeSearch = true;
-				this.noticePage = 1;
-				await this.getNoticesList();
-				this.isNoticeSearch = false;
+				await this.$emit("getNoticesList", 1);
 				done();
 			},
 			async onPullDownBoardcast(done) {
-				this.isBoardcastSearch = true;
-				this.boardcastPage = 1;
-				await this.getBoartcastsList();
-				this.isBoardcastSearch = false;
+				await this.$emit("getBoartcastsList", 1);
 				done();
 			},
-			onLoadMore(e) {},
-			getNoticesList() {
-				return new Promise((resolve, reject) => {
-					API.getAllNotice({
-						orderParams: this.orderParams,
-						searchParams: [{
-							"fieldName": "notice.broadcast",
-							"operate": "eq",
-							"value": 0
-						}, ],
-						page: this.noticePage
-					}).then(res => {
-						if (res.data.code == 200) {
-							this.totalNoticeElements = res.data.data.totalElements; //总条数
-							if (this.isNoticeSearch) {
-								this.noticeList = [];
-								this.noticeList = res.data.data.list;
-							} else {
-								this.noticeList = this.noticeList.concat(res.data.data.list);
-							}
-							this.noticeList.map(item => {
-								item.noticeTypeNameArr = item.noticeTypeName.split(",");
-							})
-							resolve();
-						}
-					})
-				})
-			},
-			getBoartcastsList() {
-				return new Promise((resolve, reject) => {
-					API.getAllNotice({
-						orderParams: this.orderParams,
-						searchParams: [{
-							"fieldName": "notice.broadcast",
-							"operate": "eq",
-							"value": 1
-						}, ],
-						page: this.boardcastPage
-					}).then(res => {
-						if (res.data.code == 200) {
-							this.totalBoardcastElements = res.data.data.totalElements; //总条数
-							if (this.isBoardcastSearch) {
-								this.boardcastList = [];
-								this.boardcastList = res.data.data.list;
-							} else {
-								this.boardcastList = this.boardcastList.concat(res.data.data.list);
-							}
-							this.boardcastList.map(item => {
-								item.noticeTypeNameArr = item.noticeTypeName.split(",");
-							})
-							resolve();
-						}
-					})
-				})
-			},
 			showOrderDetail(id) {
-				uni.navigateTo({
-					url: `./detail?id=${id}`
-				});
+				this.$emit("showOrderDetail", id);
 			},
 
 		}
@@ -231,6 +156,7 @@
 	.wrap {
 		z-index: 120;
 		width: 100%;
+		margin-top: 100rpx;
 	}
 
 	.scroll-items {

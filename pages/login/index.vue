@@ -118,15 +118,18 @@
 					password: this.password
 				}).then(res => {
 					//获取并设置token
-					API.setToken(res.data.data.Authorization);
+					// API.setToken(res.data.data.Authorization);
 					//在这里做其他操作，如获取用户信息并存储，获取资源设置权限...
 					
 					// let finalPermissionPath = ResourceMapToPath(res.data.data.permission);
 				});
 				
 				
-				uni.switchTab({
-					url: "../index/index"
+				let _this = this;
+				uni.redirectTo({
+					url: _this.currentPrincipal === "market" ? 
+						"../../package_principal_A/pages/index/index" : 
+						"../../package_principal_B/pages/index/index"
 				});
 			}
 		}

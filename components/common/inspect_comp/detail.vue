@@ -6,9 +6,14 @@
 					<p class="title">检查方：{{inspectOrder.inspectTenantName || ""}}</p>
 					<p class="title">被检查方：{{inspectOrder.beInspectedPrincipalName || ""}}</p>
 					<p>检查类型：{{inspectOrder.typeName || ""}}</p>
-					<p class="status" style="color: #0091FF;" v-if="inspectOrder.result == '2'"><span>检查结果：</span>符合</p>
-					<p class="status" style="color: #E02020;" v-else-if="inspectOrder.result == '1'"><span>检查结果：</span>不符合</p>
-					<p class="status" style="color: #fbbd08;" v-else><span>检查结果：</span>基本符合</p>
+					<template v-if="inspectOrder.result">
+						<p class="status" style="color: #0091FF;" v-if="inspectOrder.result == '2'"><span>检查结果：</span>符合</p>
+						<p class="status" style="color: #E02020;" v-else-if="inspectOrder.result == '1'"><span>检查结果：</span>不符合</p>
+						<p class="status" style="color: #fbbd08;" v-else><span>检查结果：</span>基本符合</p>
+					</template>
+					<view class="status" v-else>
+						<span>检查结果：</span>--
+					</view>
 					<p>完成时间：{{inspectOrder.beginTime || ""}}</p>
 					<view class="flex" v-if="inspectOrder.subjects.length > 0">
 						<view class="flex-sub">
@@ -88,7 +93,8 @@
 	import {
 		downloadFile
 	} from "@/utils/index.js";
-
+	import imgShowMixin from "@/mixins/imgShow.js";
+	
 	export default {
 		props: {
 			inspectOrder: {
@@ -98,10 +104,9 @@
 				}
 			}
 		},
+		mixins: [imgShowMixin],
 		data() {
-			return {
-				picArr: []
-			};
+			return {};
 		},
 		components: {
 			uniCollapse,
@@ -142,14 +147,6 @@
 			}
 		},
 		methods: {
-			imgShow(e) {
-				let src = e.currentTarget.dataset.src;
-				uni.previewImage({
-					current: src,
-					urls: this.picArr
-				});
-			},
-
 			signImgShow(e) {
 				let src = e.currentTarget.dataset.src;
 				uni.previewImage({

@@ -9,3 +9,4 @@
 1. 全局安装脚手架：npm install seer-uni-cli -g 
 2. 根据脚手架创建项目：npm seer-uni-cli init my-project
 3. 内部已有智慧监管相关components封装，同时包括对应pages实现，可根据实际需要进行相应修改替换（供参考），可在static/login目录下替换主图标
+4. 内部将角色（单位或主体）区分为不同分包，根据项目需要修改分包名称，并在pages.json的subpackage字段中对应进行修改，重新编译运行即可

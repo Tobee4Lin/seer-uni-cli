@@ -233,4 +233,60 @@
 			transform: translateY(0px);
 		}
 	}
+
+	.tabBar {
+		width: 100%;
+		height: 98rpx;
+		background: #fff;
+		border-top: 1px solid #E5E5E5;
+		position: fixed;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 9999;
+
+		.tabBar_list {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+
+			image {
+				width: 48rpx;
+				height: 48rpx;
+				margin-bottom: 2rpx;
+			}
+
+			.tabBar_item {
+				// width: 95rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				font-size: 24rpx;
+				color: #969BA3;
+			}
+
+			.tabBar_item2 {
+				width: 68rpx;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				font-size: 20rpx;
+				color: #969BA3;
+				margin-top: -20rpx;
+				position: relative;
+				z-index: 101;
+
+				image {
+					width: 68rpx;
+					height: 68rpx;
+				}
+			}
+		}
+	}
 </style>

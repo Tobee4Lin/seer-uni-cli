@@ -10,7 +10,7 @@
 						暂无内容
 					</view>
 				</view>
-				<view v-else class="scroll-item" v-for="(ite, ind) in warningOrders" :key="ind" @click="showOrderDetail(ite.id)">
+				<view v-else class="scroll-item" v-for="(ite, ind) in warningOrders" :key="ind" @click="showOrderDetail(ite.id, ite.tenantId)">
 					<view class="scroll-item-text-box">
 						<view class="name text-cut">
 							{{ite.typeName}}
@@ -185,8 +185,8 @@
 				done();
 			},
 
-			showOrderDetail(id) {
-				this.$emit("showOrderDetail", id);
+			showOrderDetail(id, tenantId) {
+				this.$emit("showOrderDetail", { id, tenantId });
 			}
 		}
 	}

@@ -172,6 +172,7 @@
 </template>
 
 <script>
+	import API from "@/api/index.js";
 	import uniFab from "@/components/uni-fab/uni-fab.vue";
 	import uniRate from '@/components/uni-rate/uni-rate.vue';
 	import QSTextarea from "@/components/QS-inputs-split/elements/QS-textarea/index.vue";
@@ -182,9 +183,18 @@
 	import {
 		downloadFile
 	} from "@/utils/index.js";
+	import imgShowMixin from "@/mixins/imgShow.js";
 
 	export default {
 		props: {
+			sourceId: {
+				type: String,
+				default: ""
+			},
+			tenantId: {
+				type: String,
+				default: ""
+			},
 			warningOrder: {
 				type: Object,
 				default () {
@@ -192,9 +202,32 @@
 				}
 			}
 		},
+		mixins: [imgShowMixin],
 		data() {
 			return {
-				picArr: []
+				horizontal: "right",
+				vertical: "bottom",
+				direction: "horizontal",
+				pattern: {
+					color: "#7A7E83",
+					backgroundColor: "#fff",
+					selectedColor: "#007AFF",
+					buttonColor: "#007AFF"
+				},
+				content: [
+					{
+						iconPath: "/static/add-check.png",
+						selectedIconPath: "/static/add-check.png",
+						text: "新增检查记录",
+						active: false
+					},
+					{
+						iconPath: "/static/add-check.png",
+						selectedIconPath: "/static/add-check.png",
+						text: "新增整改单",
+						active: false
+					}
+				]
 			};
 		},
 		components: {
@@ -232,21 +265,86 @@
 		methods: {
 			trigger(e) {
 				if (e.index == 0) {
-					uni.navigateTo({
-						url: `../../../pages/all-check/check-by-warning?sourceType=1&sourceId=${this.warningRecordId}&handleDescription=${this.handleDescription}&principalId=${this.principalId}&principalName=${this.principalName}`
+					this.$emit("dealInspect", {
+						sourceId: this.sourceId,
+						sourceType: 1,
+						principalId: this.warningOrder.principalId,
+						principalName: this.warningOrder.principalName,
+						tenantId: this.tenantId,
+						eventVersion: this.warningOrder.version,
+						handleDescription: this.handleDescription
 					});
+					// this.$navigateTo("/pages/inspect/choose-template", {
+					// 	sourceId: this.sourceId,
+					// 	sourceType: 1,
+					// 	principalId: this.warningOrder.principalId,
+					// 	principalName: this.warningOrder.principalName,
+					// 	handleDescription: this.handleDescription
+					// });
 				} else {
-					uni.navigateTo({
-						url: `../rectify-order/add-rectify-by-warning?&sourceType=1&sourceId=${this.warningRecordId}&handleDescription=${this.handleDescription}&principalId=${this.principalId}&principalName=${this.principalName}`
+					this.$emit("dealRectify", {
+						sourceId: this.sourceId,
+						sourceType: 1,
+						principalId: this.warningOrder.principalId,
+						principalName: this.warningOrder.principalName,
+						tenantId: this.tenantId,
+						eventVersion: this.warningOrder.version,
+						handleDescription: this.handleDescription
 					});
 				}
 			},
-			imgShow(e) {
-				let src = e.currentTarget.dataset.src;
-				uni.previewImage({
-					current: src,
-					urls: this.picArr
-				});
+			submitFeedback() {
+				if(this.warningOrder.levelId == "4" && this.warningOrder.status == 2) {
+					let data = {
+						id: this.warningOrder.id,
+						version: this.warningOrder.version,
+						handleType: 4	//了解处理
+					}
+					
+					API.addWarningFeedback(data).then(res => {
+						if(res.data.code == 200) {
+							this.$showToast("已处理");
+							setTimeout(() => {
+								uni.navigateBack();
+							}, 1500)
+						} else {
+							this.$showToast(res.data.message);
+						}
+						return;
+					})
+					return;
+				}
+				if(!this.handleDescription) {
+					this.$showToast("请先填写反馈描述");
+					return;
+				}
+				let arr = [];
+				this.$refs.picRef.getUpLoadPromiseArray().then(res => {
+					res.map(item => {
+						let info = JSON.parse(item.upLoadResult[1].data);
+						arr.push(info.data[0].id);
+					});
+					
+					let data = {
+						id: this.warningOrder.id,
+						handleFileIds: arr
+					}
+					
+					API.addWarningFeedback(data).then(res => {
+						if(res.data.code == 200) {
+							uni.showToast({
+								title: "反馈成功",
+								success() {
+									setTimeout(() => {
+										uni.navigateBack()
+									}, 1500);
+								}
+							})
+						} else {
+							this.$showToast(res.data.message);
+						}
+					})
+				})
 			}
 		}
 	}

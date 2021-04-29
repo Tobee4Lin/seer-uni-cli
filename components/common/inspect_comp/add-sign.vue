@@ -111,6 +111,7 @@
 		format,
 		formatDate
 	} from "@/utils/date.js";
+	import imgShowMixin from "@/mixins/imgShow.js";
 
 	export default {
 		props: {
@@ -133,18 +134,9 @@
 				default: ""
 			}
 		},
-		watch: {
-			inspectOrder: {
-				async handler(nV, oV) {
-					console.log(nV, oV)
-					if (nV) {}
-				},
-				deep: true
-			}
-		},
+		mixins: [imgShowMixin],
 		data() {
 			return {
-				picArr: [],
 				inspector_sign_id: "",
 				be_inspector_sign_id: "",
 				sign: "",
@@ -297,13 +289,6 @@
 				})
 			},
 
-			imgShow(e) {
-				let src = e.currentTarget.dataset.src;
-				uni.previewImage({
-					current: src,
-					urls: this.picArr
-				});
-			},
 			signImgShow(e) {
 				let src = e.currentTarget.dataset.src;
 				uni.previewImage({

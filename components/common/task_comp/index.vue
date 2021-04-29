@@ -1,6 +1,15 @@
 <template>
 	<view>
-		<HMfilterDropdown :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="false" @confirm="confirm"></HMfilterDropdown>
+		<HMfilterDropdown 
+			:filterData="filterData" 
+			:defaultSelected="filterDropdownValue" 
+			:updateMenuName="false" 
+			:timeSearchTitle="timeSearchTitle" 
+			:inputSearchList="inputSearchList" 
+			@clearTimeSearchSchema="clearTimeSearchSchema" 
+			@setTimeSearchSchema="setTimeSearchSchema"
+			@confirm="confirm"
+		></HMfilterDropdown>
 
 		<you-scroll ref="scroll" @onPullDown="onPullDown">
 			<view class="scroll-items">
@@ -63,6 +72,28 @@
 				default () {
 					return [];
 				}
+			},
+			//我下发的任务-1 / 我的待办任务-2
+			taskDealType: {
+				type: String,
+				default: "2"
+			},
+			//用户手动输入的查询条件
+			inputSearchList: {
+				type: Array,
+				default () {
+					return [];
+				}
+			},
+			//xx时间的标题，如开始时间
+			timeSearchTitle: {
+				type: String,
+				default: ""
+			},
+			//按某种时间搜索的schema，如beginTime
+			timeSearchSchema: {
+				type: String,
+				default: ""
 			}
 		},
 		components: {
@@ -81,7 +112,9 @@
 					"已取消": 3
 				},
 
-				searchParams: []
+				searchParams: [],
+				
+				hasTimeSearch: false
 			}
 		},
 		created() {
@@ -135,25 +168,41 @@
 						_r.push(this.rStatusMap[item]);
 					}
 				}
-				this.searchParams = [{
-						"fieldName": "executor.executeOrganizationId",
-						"operate": "eq",
-						"value": getItem("principal_id")
-					},
-					{
-						"fieldName": "batch.inspect",
-						"operate": "eq",
-						"value": 1
-					},
+				this.searchParams = [
 					{
 						"fieldName": "task.status",
 						"operate": "in",
 						"value": _r.join(",")
 					}
 				];
-
+				
+				e.inputSearchResult.map(item => {
+					this.searchParams.push({
+						"fieldName": item.schema,
+						"operate": "like",
+						"value": item.input
+					})
+				})
+				if (e.timeSearchRangeResult[0] && e.timeSearchRangeResult[1] && this.hasTimeSearch) {
+					this.searchParams.push({
+						"fieldName": this.timeSearchSchema,
+						"operate": "between",
+						"value": e.timeSearchRangeResult[0] + " 00:00",
+						"value1": e.timeSearchRangeResult[1] + " 23:59"
+					});
+				}
+				
+				//拼接完查询参数后传给父组件，进行再次请求
 				this.$emit("confirm", this.searchParams);
 			},
+			
+			clearTimeSearchSchema() {
+				this.hasTimeSearch = false;
+			},
+			setTimeSearchSchema() {
+				this.hasTimeSearch = true;
+			},
+			
 			async onPullDown(done) {
 				await this.$emit("getTaskList", 1);
 				done();
@@ -165,10 +214,18 @@
 					this.$showToast("该任务已取消");
 					return;
 				}
-				if (status == 0 || status == 2) {
-					this.$emit("dealDetailPath", `./detail?id=${id}`);
+				if(this.taskDealType === "2") {
+					if (status == 0 || status == 2) {
+						this.$emit("dealDetailPath", `./detail?id=${id}`);
+					} else {
+						this.$emit("dealDetailPath", `./preview-order-detail?id=${workOrderId}`);
+					}
 				} else {
-					this.$emit("dealDetailPath", `./preview-order-detail?id=${workOrderId}`);
+					if (status == 0 || status == 2) {
+						this.$showToast("该任务您暂无法执行");
+					} else {
+						this.$emit("dealDetailPath", `./preview-order-detail?id=${workOrderId}`);
+					}
 				}
 			}
 		}

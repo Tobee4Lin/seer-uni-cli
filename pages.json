@@ -9,13 +9,6 @@
 			"enablePullDownRefresh": false
 		}
 	}, {
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "首页",
-			"enablePullDownRefresh": false
-		}
-
-	}, {
 		"path": "pages/demo/uploadPic",
 		"style": {
 			"navigationBarTitleText": "图片上传"
@@ -26,162 +19,277 @@
 			"navigationBarTitleText": "上拉加载，下拉刷新"
 		}
 	}, {
-		"path": "pages/user/index",
+		"path": "pages/video/index",
 		"style": {
-			"navigationBarTitleText": "个人中心",
+			"navigationBarTitleText": "",
 			"enablePullDownRefresh": false
 		}
+	}],
+	// 对每个主体（或单位，角色）进行分包
+	"subpackages": [{
+		"root": "package_principal_A",
+		"pages": [{
+				"path": "pages/index/index",
+				"style": {
+					"navigationBarTitleText": "首页",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "pages/rectify/index",
+				"style": {
+					"navigationBarTitleText": "整改中心"
+				}
+			},
+			{
+				"path": "pages/rectify/detail",
+				"style": {
+					"navigationBarTitleText": "整改详情"
+				}
+			}, {
+				"path": "pages/inspect/index",
+				"style": {
+					"navigationBarTitleText": "检查中心"
+				}
+			}, {
+				"path": "pages/inspect/detail",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
+			}, {
+				"path": "pages/inspect/execute-page",
+				"style": {
+					"navigationBarTitleText": "开始检查"
+				}
+			}, {
+				"path": "pages/warning/index",
+				"style": {
+					"navigationBarTitleText": "预警中心"
+				}
+			},
+			{
+				"path": "pages/warning/detail",
+				"style": {
+					"navigationBarTitleText": "预警详情"
+				}
+			}, {
+				"path": "pages/task/index",
+				"style": {
+					"navigationBarTitleText": "任务中心"
+				}
+			}, {
+				"path": "pages/inspect/choose-template",
+				"style": {
+					"navigationBarTitleText": "选择检查模板"
+				}
+			},
+			{
+				"path": "pages/inspect/add-sign",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
+			}, {
+				"path": "pages/inspect/sign-page",
+				"style": {
+					"navigationBarTitleText": "签名页"
+				}
+			}, {
+				"path": "pages/task/detail",
+				"style": {
+					"navigationBarTitleText": "任务详情"
+				}
+			}, {
+				"path": "pages/task/add-sign",
+				"style": {
+					"navigationBarTitleText": "任务单详情"
+				}
+			},
+			{
+				"path": "pages/task/sign-page",
+				"style": {
+					"navigationBarTitleText": "签名页"
+				}
+			}, {
+				"path": "pages/task/preview-order-detail",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
+			}, {
+				"path": "pages/notice/index",
+				"style": {
+					"navigationBarTitleText": "公告中心"
+				}
+			}, {
+				"path": "pages/notice/detail",
+				"style": {
+					"navigationBarTitleText": "公告详情"
+				}
+			},
+			{
+				"path": "pages/rectify/add",
+				"style": {
+					"navigationBarTitleText": "新增整改"
+				}
+			}
+		]
 	}, {
-		"path": "pages/notify/index",
-		"style": {
-			"navigationBarTitleText": "消息中心"
-		}
-	}, {
-		"path": "pages/rectify/index",
-		"style": {
-			"navigationBarTitleText": "整改中心"
-		}
+		"root": "package_principal_B",
+		"pages": [{
+				"path": "pages/index/index",
+				"style": {
+					"navigationBarTitleText": "首页 - 监管端",
+					"enablePullDownRefresh": false
+				}
 
-	}, {
-		"path": "pages/rectify/detail",
-		"style": {
-			"navigationBarTitleText": "整改详情"
-		}
+			}, {
+				"path": "pages/task/todo-task-type-list",
+				"style": {
+					"navigationBarTitleText": "我的待办",
+					"enablePullDownRefresh": false
+				}
 
-	}, {
-		"path": "pages/inspect/index",
-		"style": {
-			"navigationBarTitleText": "检查中心"
-		}
+			},
+			{
+				"path": "pages/task/my-task-type-list",
+				"style": {
+					"navigationBarTitleText": "我下发的",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "pages/task/todo-task-list",
+				"style": {
+					"navigationBarTitleText": "我的待办任务"
+				}
+			},
+			{
+				"path": "pages/task/my-task-list",
+				"style": {
+					"navigationBarTitleText": "我的派发任务"
+				}
 
-	}, {
-		"path": "pages/inspect/detail",
-		"style": {
-			"navigationBarTitleText": "检查单详情",
-			"enablePullDownRefresh": false
-		}
+			},
+			{
+				"path": "pages/task/detail",
+				"style": {
+					"navigationBarTitleText": "任务单"
+				}
+			},
+			{
+				"path": "pages/task/preview-order-detail",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
 
-	}, {
-		"path": "pages/inspect/execute-page",
-		"style": {
-			"navigationBarTitleText": "开始检查",
-			"enablePullDownRefresh": false
-		}
+			},
+			{
+				"path": "pages/principal-info/index",
+				"style": {
+					"navigationBarTitleText": "主体信息"
+				}
 
-	}, {
-		"path": "pages/warning/index",
-		"style": {
-			"navigationBarTitleText": "预警中心"
-		}
+			},
+			{
+				"path": "pages/inspect/add",
+				"style": {
+					"navigationBarTitleText": "新增检查单"
+				}
 
-	}, {
-		"path": "pages/warning/detail",
-		"style": {
-			"navigationBarTitleText": "预警详情",
-			"enablePullDownRefresh": false
-		}
+			}, {
+				"path": "pages/inspect/add-sign",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
 
-	}    ,{
-            "path" : "pages/task/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/inspect/choose-template",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/inspect/add-sign",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/inspect/sign-page",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/task/detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/task/add-sign",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/task/sign-page",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/task/preview-order-detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/notice/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
-	"tabBar": {
-		"selectedColor": "#0091FF",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath": "static/tabbar/home.png",
-			"selectedIconPath": "static/tabbar/home-active.png"
-		}, {
-			"pagePath": "pages/notify/index",
-			"text": "消息",
-			"iconPath": "static/tabbar/user.png",
-			"selectedIconPath": "static/tabbar/user-active.png"
-		}, {
-			"pagePath": "pages/user/index",
-			"text": "我",
-			"iconPath": "static/tabbar/user.png",
-			"selectedIconPath": "static/tabbar/user-active.png"
-		}]
-	},
+			}, {
+				"path": "pages/inspect/sign-page",
+				"style": {
+					"navigationBarTitleText": "签名页"
+				}
+
+			},
+			{
+				"path": "pages/principal-info/inspect-list",
+				"style": {
+					"navigationBarTitleText": "检查列表"
+				}
+
+			}, {
+				"path": "pages/principal-info/rectify-list",
+				"style": {
+					"navigationBarTitleText": "整改列表"
+				}
+
+			}, {
+				"path": "pages/principal-info/warning-list",
+				"style": {
+					"navigationBarTitleText": "预警列表"
+				}
+
+			},
+			{
+				"path": "pages/inspect/detail",
+				"style": {
+					"navigationBarTitleText": "检查单详情"
+				}
+			},
+			{
+				"path": "pages/rectify/detail",
+				"style": {
+					"navigationBarTitleText": "整改单详情"
+				}
+			},
+			{
+				"path": "pages/warning/detail",
+				"style": {
+					"navigationBarTitleText": "预警详情"
+				}
+			},
+			{
+				"path": "pages/rectify/add",
+				"style": {
+					"navigationBarTitleText": "新增整改单"
+				}
+			},
+			{
+				"path": "pages/inspect/choose-template",
+				"style": {
+					"navigationBarTitleText": "选择检查模板"
+				}
+			},
+			{
+				"path": "pages/notice/index",
+				"style": {
+					"navigationBarTitleText": "公告中心"
+				}
+			},
+			{
+				"path": "pages/notice/detail",
+				"style": {
+					"navigationBarTitleText": "公告详情"
+				}
+			}
+		]
+	}],
+	// "tabBar": {
+	// 	"custom": true,
+	// 	"selectedColor": "#0091FF",
+	// 	"list": [{
+	// 		"pagePath": "pages/index/index",
+	// 		"text": "首页",
+	// 		"iconPath": "static/tabbar/home.png",
+	// 		"selectedIconPath": "static/tabbar/home-active.png"
+	// 	}, {
+	// 		"pagePath": "pages/notify/index",
+	// 		"text": "消息",
+	// 		"iconPath": "static/tabbar/user.png",
+	// 		"selectedIconPath": "static/tabbar/user-active.png"
+	// 	}, {
+	// 		"pagePath": "pages/user/index",
+	// 		"text": "我",
+	// 		"iconPath": "static/tabbar/user.png",
+	// 		"selectedIconPath": "static/tabbar/user-active.png"
+	// 	}]
+	// },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

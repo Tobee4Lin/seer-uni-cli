@@ -53,6 +53,14 @@
 				default () {
 					return [];
 				}
+			},
+			sourceId: {
+				type: String,
+				default: ""
+			},
+			sourceType: {
+				type: String,
+				default: ""
 			}
 		},
 		data() {
@@ -89,11 +97,13 @@
 				let inspectOrderInfo = {
 					typeId: this.checkTypeId || this.checkTypeIds[0],
 					typeName: this.checkType || this.checkTypes[0],
-					templateId: this.checkTemplateId
+					templateId: this.checkTemplateId,
+					sourceType: this.sourceType || "1",
+					sourceId: this.sourceId || ""
 				};
 				this.$store.commit("saveInspectOrder", inspectOrderInfo);
 				
-				this.$emit("dealAddInspectOrder", "./execute-page");
+				this.$emit("dealAddInspectOrder");
 			}
 		}
 	}
